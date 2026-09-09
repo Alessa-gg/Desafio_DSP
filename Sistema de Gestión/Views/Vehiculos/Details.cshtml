@@ -1,0 +1,72 @@
+﻿@model Sistema_de_Gestion.Models.Vehiculo
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles del vehiculo</h2>
+
+<div>
+    <h4>@Model.TipoVehiculo</h4>
+
+    <hr />
+
+    <dl class="dl-horizontal">
+
+        <dt>Placa</dt>
+        <dd>@Model.Placa</dd>
+
+        <dt>Marca</dt>
+        <dd>@Model.Marca</dd>
+
+        <dt>Modelo</dt>
+        <dd>@Model.Modelo</dd>
+
+        <dt>Año</dt>
+        <dd>@Model.Anio</dd>
+
+        <dt>Kilometraje</dt>
+        <dd>@Model.Kilometraje</dd>
+
+        <dt>Costo de mantenimiento</dt>
+        <dd>$@Model.CalcularCostoMantenimiento()</dd>
+
+        <dt>Resumen</dt>
+        <dd>@Model.ObtenerResumen()</dd>
+
+        @if (Model is Sistema_de_Gestion.Models.Camion)
+        {
+            var camion = (Sistema_de_Gestion.Models.Camion)Model;
+
+            <dt>Capacidad de carga</dt>
+            <dd>@camion.CapacidadCargaToneladas toneladas</dd>
+        }
+
+        @if (Model is Sistema_de_Gestion.Models.Automovil)
+        {
+            var automovil = (Sistema_de_Gestion.Models.Automovil)Model;
+
+            <dt>Tipo de combustible</dt>
+            <dd>@automovil.TipoCombustible</dd>
+        }
+
+        @if (Model is Sistema_de_Gestion.Models.Motocicleta)
+        {
+            var moto = (Sistema_de_Gestion.Models.Motocicleta)Model;
+
+            <dt>Cilindraje</dt>
+            <dd>@moto.Cilindraje cc</dd>
+        }
+
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Editar", "Edit",
+            new { id = Model.Placa },
+            new { @class = "btn btn-primary" })
+
+    @Html.ActionLink("Volver", "Index",
+            null,
+            new { @class = "btn btn-default" })
+</p>

@@ -1,0 +1,118 @@
+﻿@model Sistema_de_Gestion.Models.Vehiculo
+
+@{
+    ViewBag.Title = "Editar Veh&iacute;culo";
+}
+
+<h2>Editar Veh&iacute;culo</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" name="placaOriginal" value="@Model.Placa" />
+
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label>Tipo de Veh&iacute;culo</label>
+        <select name="tipo" id="tipo" class="form-control">
+            <option value="Camion" @(Model is Sistema_de_Gestion.Models.Camion ? "selected" : "")>Camni&oacute;n</option>
+            <option value="Automovil" @(Model is Sistema_de_Gestion.Models.Automovil ? "selected" : "")>Autom&oacute;vil</option>
+            <option value="Motocicleta" @(Model is Sistema_de_Gestion.Models.Motocicleta ? "selected" : "")>Motocicleta</option>
+        </select>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label>Placa</label>
+        <input type="text" name="placa" value="@Model.Placa" class="form-control" required />
+    </div>
+
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label>Marca</label>
+        <input type="text" name="marca" value="@Model.Marca" class="form-control" required />
+    </div>
+
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label>Modelo</label>
+        <input type="text" name="modelo" value="@Model.Modelo" class="form-control" required />
+    </div>
+
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label>A&ntilde;o</label>
+        <input type="number" name="anio" value="@Model.Anio" class="form-control" required />
+    </div>
+
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label>Kilometraje</label>
+        <input type="number" step="0.01" name="kilometraje" value="@Model.Kilometraje" class="form-control" required />
+    </div>
+
+
+    <div id="campoCamion" style="display:none; margin-bottom: 15px;">
+        <div class="form-group">
+            <label>Capacidad de Carga (Toneladas)</label>
+            <input type="number" step="0.01" name="capacidadCargaToneladas"
+                   value="@(Model is Sistema_de_Gestion.Models.Camion ? ((Sistema_de_Gestion.Models.Camion)Model).CapacidadCargaToneladas.ToString() : "")"
+                   class="form-control" />
+        </div>
+    </div>
+
+    <div id="campoAutomovil" style="display:none; margin-bottom: 15px;">
+        <div class="form-group">
+            <label>Tipo de Combustible</label>
+            <select name="tipoCombustible" class="form-control">
+                <option value="">Seleccione...</option>
+            
+                <option value="Gasolina Regular" @(Model is Sistema_de_Gestion.Models.Automovil && ((Sistema_de_Gestion.Models.Automovil)Model).TipoCombustible == "Gasolina Regular" ? "selected" : "")>Gasolina Regular</option>
+                <option value="Gasolina Premium" @(Model is Sistema_de_Gestion.Models.Automovil && ((Sistema_de_Gestion.Models.Automovil)Model).TipoCombustible == "Gasolina Premium" ? "selected" : "")>Gasolina Premium</option>
+                <option value="Diesel" @(Model is Sistema_de_Gestion.Models.Automovil && ((Sistema_de_Gestion.Models.Automovil)Model).TipoCombustible == "Diesel" ? "selected" : "")>Diesel</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="campoMotocicleta" style="display:none; margin-bottom: 15px;">
+        <div class="form-group">
+            <label>Cilindraje (cc)</label>
+            <input type="number" name="cannot"
+                   value="@(Model is Sistema_de_Gestion.Models.Motocicleta ? ((Sistema_de_Gestion.Models.Motocicleta)Model).Cilindraje.ToString() : "")"
+                   class="form-control" />
+        </div>
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+
+    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+}
+
+
+<script>function adaptarFormulario() {
+        var tipoVehiculo = document.getElementById("tipo").value;
+
+        // Ocultar todos
+        document.getElementById("campoCamion").style.display = "none";
+        document.getElementById("campoAutomovil").style.display = "none";
+        document.getElementById("campoMotocicleta").style.display = "none";
+
+        // Mostrar solo el seleccionado
+        if (tipoVehiculo === "Camion") {
+            document.getElementById("campoCamion").style.display = "block";
+        } else if (tipoVehiculo === "Automovil") {
+            document.getElementById("campoAutomovil").style.display = "block";
+        } else if (tipoVehiculo === "Motocicleta") {
+            document.getElementById("campoMotocicleta").style.display = "block";
+        }
+    }
+
+    // Ejecuta al cargar la página por primera vez
+    document.addEventListener("DOMContentLoaded", adaptarFormulario);
+
+    // Ejecuta dinámicamente si el usuario cambia la opción del desplegable
+    document.getElementById("tipo").addEventListener("change", adaptarFormulario);</script>
