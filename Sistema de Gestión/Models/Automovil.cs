@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Sistema_de_Gestión.Models
+namespace Sistema_de_Gestion.Models
 {
     public class Automovil : Vehiculo
     {

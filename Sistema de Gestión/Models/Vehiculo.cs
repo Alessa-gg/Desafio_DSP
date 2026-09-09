@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Sistema_de_Gestión.Models
+namespace Sistema_de_Gestion.Models
 {
     public abstract class Vehiculo
     {
@@ -13,6 +13,7 @@ namespace Sistema_de_Gestión.Models
         public int Anio { get; set; }
         public double Kilometraje { get; set; }
 
+  
         public abstract string TipoVehiculo { get; }
 
         public abstract double CalcularCostoMantenimiento();

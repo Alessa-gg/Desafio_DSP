@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Sistema_de_Gestion.Models.Vehiculo>
+
+@{
+    ViewBag.Title = "Vehiculos";
+}
+
+<h2>Vehiculos registrados</h2>
+
+<p>
+    @Html.ActionLink("Registrar nuevo vehiculo", "Create")
+</p>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Tipo</th>
+        <th>Placa</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Año</th>
+        <th>Kilometraje</th>
+        <th>Mantenimiento</th>
+        <th>Acciones</th>
+    </tr>
+
+    @foreach (var vehiculo in Model)
+    {
+        <tr>
+            <td>@vehiculo.TipoVehiculo</td>
+            <td>@vehiculo.Placa</td>
+            <td>@vehiculo.Marca</td>
+            <td>@vehiculo.Modelo</td>
+            <td>@vehiculo.Anio</td>
+            <td>@vehiculo.Kilometraje</td>
+            <td>@vehiculo.CalcularCostoMantenimiento()</td>
+
+            <td>
+                @Html.ActionLink("Detalles", "Details", new { id = vehiculo.Placa }) |
+                @Html.ActionLink("Editar", "Edit", new { id = vehiculo.Placa }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = vehiculo.Placa })
+            </td>
+        </tr>
+    }
+</table>
